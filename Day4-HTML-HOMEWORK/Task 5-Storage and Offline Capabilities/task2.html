@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Example</title>
+    <style>
+        #location {
+            margin-top: 20px;
+            font-size: 18px;
+            color: blue;
+            text-align: center;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Find My Location</h1>
+
+    <!-- Button to get the user's location -->
+    <button id="getLocationButton">Get My Location</button>
+
+    <!-- Display the user's location -->
+    <div id="location"></div>
+
+    <script>
+        // Function to get the user's location
+        function getLocation() {
+            const locationDiv = document.getElementById('location');
+            
+            // Check if Geolocation is supported
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                locationDiv.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        // Function to show the user's position (latitude and longitude)
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById('location').innerHTML = 
+                "Latitude: " + latitude + "<br>Longitude: " + longitude;
+        }
+
+        // Function to handle errors
+        function showError(error) {
+            let errorMessage = "";
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "An unknown error occurred.";
+                    break;
+            }
+            document.getElementById('location').innerHTML = errorMessage;
+        }
+
+        // Add event listener to the button
+        document.getElementById('getLocationButton').addEventListener('click', getLocation);
+    </script>
+</body>
+</html>

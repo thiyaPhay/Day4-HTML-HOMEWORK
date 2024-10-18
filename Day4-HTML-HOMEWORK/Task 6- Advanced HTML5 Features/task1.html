@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Color Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Choose Your Background Theme Color</h1>
+
+    <label for="themeColor">Select Color:</label>
+    <select id="themeColor">
+        <option value="#ffffff">White</option>
+        <option value="#f28b82">Light Red</option>
+        <option value="#fbbc04">Light Orange</option>
+        <option value="#fff475">Light Yellow</option>
+        <option value="#ccff90">Light Green</option>
+        <option value="#a7ffeb">Light Cyan</option>
+        <option value="#d7aefb">Light Purple</option>
+        <option value="#fdcfe8">Light Pink</option>
+        <option value="#e6e6e6">Light Gray</option>
+    </select>
+
+    <button id="saveTheme">Save Theme</button>
+
+    <script>
+        const themeSelect = document.getElementById('themeColor');
+        const saveButton = document.getElementById('saveTheme');
+
+        // Load saved theme from localStorage when the page is loaded
+        window.onload = () => {
+            const savedColor = localStorage.getItem('backgroundColor');
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor;
+                themeSelect.value = savedColor;
+            }
+        };
+
+        // Save the selected theme color to localStorage and apply it to the background
+        saveButton.addEventListener('click', () => {
+            const selectedColor = themeSelect.value;
+            document.body.style.backgroundColor = selectedColor;
+            localStorage.setItem('backgroundColor', selectedColor);
+            alert("Theme color saved!");
+        });
+    </script>
+
+</body>
+</html>
